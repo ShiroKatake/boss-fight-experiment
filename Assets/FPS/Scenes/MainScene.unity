@@ -1907,7 +1907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 50
   rotateSpeed: 500
-  pitch: 10
+  pitchSpeed: 10
+  maxHeight: 20
 --- !u!1001 &737701770
 PrefabInstance:
   m_ObjectHideFlags: 0
