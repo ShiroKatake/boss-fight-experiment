@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    // Start is called before the first frame update
+	// Start is called before the first frame update
     void Start()
     {
 		GetComponent<Coil>().Trigger();

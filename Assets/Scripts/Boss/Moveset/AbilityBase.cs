@@ -4,19 +4,19 @@ using UnityEngine;
 
 public abstract class AbilityBase : MonoBehaviour
 {
-	protected bool canUse;
+	protected bool isUsing;
 
 	protected abstract void Ability();
 
 	public void Trigger()
 	{
-		canUse = true;
+		isUsing = true;
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-		if (canUse)
+		if (isUsing)
 			Ability();
     }
 }
