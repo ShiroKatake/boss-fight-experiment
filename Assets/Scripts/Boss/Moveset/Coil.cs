@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coil : MonoBehaviour
+public class Coil : AbilityBase
 {
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float rotateSpeed;
@@ -15,6 +15,7 @@ public class Coil : MonoBehaviour
 	float startHeight;
 
 	float moving = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +23,9 @@ public class Coil : MonoBehaviour
 		currentRotateSpeed = rotateSpeed;
 		currentPitchSpeed = pitchSpeed;
 		startHeight = transform.position.y;
-		Debug.Log(transform.position.y < maxHeight);
 	}
 
-	// Update is called once per frame
-	void Update()
+	protected override void Ability()
 	{
 		Orbit();
 		Move();
@@ -35,7 +34,10 @@ public class Coil : MonoBehaviour
 			moving = -1;
 
 		if (transform.position.y < startHeight)
+		{
 			moving = 0;
+			canUse = false;
+		}
 	}
 
 	void Orbit()
