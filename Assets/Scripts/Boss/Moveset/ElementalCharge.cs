@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coil : AbilityBase
+public class ElementalCharge : AbilityBase
 {
 	[SerializeField] private float moveSpeed;
 

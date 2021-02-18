@@ -7,7 +7,7 @@ public class Boss : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
-		GetComponent<Coil>().Trigger();
+		GetComponent<ElementalCharge>().Trigger();
     }
 
     // Update is called once per frame
