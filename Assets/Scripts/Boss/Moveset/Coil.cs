@@ -28,19 +28,14 @@ public class Coil : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log(moving);
 		Orbit();
-		MoveUp();
-		MoveDown();
+		Move();
+
 		if (transform.position.y > maxHeight)
-		{
 			moving = -1;
-		}
 
 		if (transform.position.y < startHeight)
-		{
 			moving = 0;
-		}
 	}
 
 	void Orbit()
@@ -49,24 +44,18 @@ public class Coil : MonoBehaviour
 		transform.Translate(Vector3.forward * currentMoveSpeed * Time.deltaTime);
 	}
 
-	void MoveUp()
+	void Move()
 	{
-		if (moving == 1)
-			transform.Translate(Vector3.up * currentPitchSpeed * Time.deltaTime);
-		
-	}
-
-	void MoveDown()
-	{
-		Debug.Log("movedown");
-		if (moving == -1)
-			transform.Translate(Vector3.up * -currentPitchSpeed * Time.deltaTime);
-	}
-
-	IEnumerator Charge()
-	{
-		Orbit();
-
-		yield return null;
+		switch (moving)
+		{
+			case 1:
+				transform.Translate(Vector3.up * currentPitchSpeed * Time.deltaTime);
+				break;
+			case -1:
+				transform.Translate(Vector3.up * -currentPitchSpeed * Time.deltaTime);
+				break;
+			default:
+				break;
+		}		
 	}
 }
