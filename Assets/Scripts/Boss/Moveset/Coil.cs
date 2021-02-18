@@ -5,59 +5,38 @@ using UnityEngine;
 public class Coil : AbilityBase
 {
 	[SerializeField] private float moveSpeed;
-	[SerializeField] private float rotateSpeed;
-	[SerializeField] private float pitchSpeed;
+
+	[SerializeField] private float radius;
+	[SerializeField] private float pitch;
 	[SerializeField] private float maxHeight;
 
 	float currentMoveSpeed;
-	float currentRotateSpeed;
-	float currentPitchSpeed;
 	float startHeight;
 
-	float moving = 1f;
+	float direction = 1f;
+	float posX, posY, posZ;
+	float angleT;
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		currentMoveSpeed = moveSpeed;
-		currentRotateSpeed = rotateSpeed;
-		currentPitchSpeed = pitchSpeed;
 		startHeight = transform.position.y;
 	}
 
 	protected override void Ability()
 	{
 		Orbit();
-		Move();
-
-		if (transform.position.y > maxHeight)
-			moving = -1;
-
-		if (transform.position.y < startHeight)
-		{
-			moving = 0;
-			canUse = false;
-		}
 	}
 
 	void Orbit()
 	{
-		transform.Rotate(Vector3.up, currentRotateSpeed * Time.deltaTime);
-		transform.Translate(Vector3.forward * currentMoveSpeed * Time.deltaTime);
-	}
+		angleT += Mathf.Deg2Rad * moveSpeed * direction * Time.deltaTime;
 
-	void Move()
-	{
-		switch (moving)
-		{
-			case 1:
-				transform.Translate(Vector3.up * currentPitchSpeed * Time.deltaTime);
-				break;
-			case -1:
-				transform.Translate(Vector3.up * -currentPitchSpeed * Time.deltaTime);
-				break;
-			default:
-				break;
-		}		
+		posX = radius * Mathf.Cos(angleT);
+		posY = transform.position.y < maxHeight ? pitch * angleT : transform.localPosition.y;
+		posZ = radius * Mathf.Sin(angleT);
+
+		transform.localPosition = new Vector3(posX, posY, posZ);
 	}
 }
