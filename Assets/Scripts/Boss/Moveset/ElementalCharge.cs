@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class ElementalCharge : AbilityBase
 {
+	[SerializeField] private GameObject fireFX;
+	[SerializeField] private GameObject thunderFX;
+
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float radius;
 	[SerializeField] private float pitch;
 	[SerializeField] private float maxHeight;
 
-	float currentMoveSpeed;
-	float startHeight;
+	private Boss boss;
 
-	float direction = 1f;
-	float posX, posY, posZ;
-	float angleT;
+	private float currentMoveSpeed;
+	private float startHeight;
+
+	private float direction = 1f;
+	private float posX, posY, posZ;
+	private float angleT;
+
+	private void Awake()
+	{
+		boss = GetComponent<Boss>();
+	}
 
 	// Start is called before the first frame update
 	private void Start()
@@ -25,10 +35,11 @@ public class ElementalCharge : AbilityBase
 
 	protected override void Ability()
 	{
+		EnableFX(boss.Element);
 		Orbit();
 	}
 
-	void Orbit()
+	private void Orbit()
 	{
 		angleT += Mathf.Deg2Rad * moveSpeed * direction * Time.deltaTime;
 
@@ -37,5 +48,20 @@ public class ElementalCharge : AbilityBase
 		posZ = radius * Mathf.Sin(angleT);
 
 		transform.localPosition = new Vector3(posX, posY, posZ);
+	}
+
+	private void EnableFX(EElement element)
+	{
+		if (element == EElement.Fire)
+		{
+			fireFX.SetActive(true);
+			thunderFX.SetActive(false);
+		}
+
+		else if (element == EElement.Thunder)
+		{
+			fireFX.SetActive(false);
+			thunderFX.SetActive(true);
+		}
 	}
 }

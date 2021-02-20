@@ -25,7 +25,7 @@ public abstract class AbilityBase : MonoBehaviour
 		}
 	}
 
-	public void Trigger()
+	public void Execute()
 	{
 		isUsing = true;
 		timePassed = 0f;
