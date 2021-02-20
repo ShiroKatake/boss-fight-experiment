@@ -4,19 +4,30 @@ using UnityEngine;
 
 public abstract class AbilityBase : MonoBehaviour
 {
-	protected bool isUsing;
+	[SerializeField] private float abilityDuration;
 
+	protected bool isUsing;
 	protected abstract void Ability();
+
+	float timePassed;
+
+	// Update is called once per frame
+	private void Update()
+    {
+		if (timePassed < abilityDuration)
+			timePassed += Time.deltaTime;
+		else
+			isUsing = false;
+
+		if (isUsing)
+		{
+			Ability();
+		}
+	}
 
 	public void Trigger()
 	{
 		isUsing = true;
+		timePassed = 0f;
 	}
-
-	// Update is called once per frame
-	void Update()
-    {
-		if (isUsing)
-			Ability();
-    }
 }

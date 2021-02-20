@@ -5,7 +5,6 @@ using UnityEngine;
 public class ElementalCharge : AbilityBase
 {
 	[SerializeField] private float moveSpeed;
-
 	[SerializeField] private float radius;
 	[SerializeField] private float pitch;
 	[SerializeField] private float maxHeight;
@@ -18,7 +17,7 @@ public class ElementalCharge : AbilityBase
 	float angleT;
 
 	// Start is called before the first frame update
-	void Start()
+	private void Start()
     {
 		currentMoveSpeed = moveSpeed;
 		startHeight = transform.position.y;
