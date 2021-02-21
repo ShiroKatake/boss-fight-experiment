@@ -15,6 +15,8 @@ public class ElementalCharge : AbilityBase
 	[SerializeField] private GameObject thunderFX;
 
 	[SerializeField] private float moveSpeed;
+	[SerializeField] private float acceleratedSpeed;
+	[SerializeField] private float accelerationDuration;
 	[SerializeField] private float radius;
 	[SerializeField] private float pitch;
 	[SerializeField] private float maxHeight;
@@ -29,6 +31,10 @@ public class ElementalCharge : AbilityBase
 	private float direction = 1f;
 	private float posX, posY, posZ;
 	private float angleT;
+
+	private float accelerationTimePassed;
+
+	private float test;
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -49,8 +55,7 @@ public class ElementalCharge : AbilityBase
 	/// </summary>
 	private void Start()
     {
-		currentMoveSpeed = moveSpeed;
-		startHeight = transform.position.y;
+		Initialize();
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -66,24 +71,68 @@ public class ElementalCharge : AbilityBase
 		else
 			isUsing = false;
 
+		SpeedControl();
+
 		if (isUsing)
-			Orbit();
+			Coil();
 	}
 
 	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
+	private void Initialize()
+	{
+		accelerationTimePassed = 0f;
+		currentMoveSpeed = 0f;
+		startHeight = transform.position.y;
+	}
+
 	/// <summary>
 	/// Orbits the boss in a spiral, then a circle when reached maximum height.
 	/// </summary>
-	private void Orbit()
+	private void Coil()
 	{
-		angleT += Mathf.Deg2Rad * moveSpeed * direction * Time.deltaTime;
+		angleT += Mathf.Deg2Rad * currentMoveSpeed * direction * Time.deltaTime;
 
 		posX = radius * Mathf.Cos(angleT);
 		posY = transform.position.y < maxHeight ? pitch * angleT : transform.localPosition.y;
 		posZ = radius * Mathf.Sin(angleT);
 
 		transform.localPosition = new Vector3(posX, posY, posZ);
+	}
+
+	/// <summary>
+	/// Controls boss' speed.
+	/// </summary>
+	private void SpeedControl()
+	{
+		if (transform.position.y < maxHeight)
+		{
+			if (currentMoveSpeed < moveSpeed)
+			{
+				currentMoveSpeed = Accelerate(0f, moveSpeed, true);
+			}
+			else
+				accelerationTimePassed = 0f;
+		}
+		else
+		{
+			if (currentMoveSpeed < acceleratedSpeed)
+				currentMoveSpeed = Accelerate(moveSpeed, acceleratedSpeed, false);
+			else
+				accelerationTimePassed = 0f;
+		}
+	}
+
+	/// <summary>
+	/// Accelerate boss' speed.
+	/// </summary>
+	private float Accelerate(float startSpeed, float endSpeed, bool easeIn)
+	{
+		accelerationTimePassed += Time.deltaTime;
+		float t = accelerationTimePassed / accelerationDuration;
+		if (easeIn)
+			t = 1f - Mathf.Cos(t * Mathf.PI * 0.5f);
+		return Mathf.Lerp(startSpeed, endSpeed, t);
 	}
 
 	/// <summary>
@@ -110,6 +159,7 @@ public class ElementalCharge : AbilityBase
 
 	public override void Execute(int element = 0)
 	{
+		Initialize();
 		//EnableFX((EElement)element);
 		base.Execute(element);
 	}
