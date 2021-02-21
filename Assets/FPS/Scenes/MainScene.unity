@@ -1939,7 +1939,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDuration: 0
+  fireFX: {fileID: 0}
+  thunderFX: {fileID: 0}
   moveSpeed: 5
+  acceleratedSpeed: 0
+  accelerationDuration: 0
   radius: 7
   pitch: 5
   maxHeight: 20
@@ -3703,13 +3707,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117466108}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53c49a5e73f25684a92e1014df8f2af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityDuration: 5.6
+  abilityDuration: 8.2
+  fireFX: {fileID: 0}
+  thunderFX: {fileID: 0}
   moveSpeed: 400
+  acceleratedSpeed: 700
+  accelerationDuration: 2.5
   radius: 7
   pitch: 1
   maxHeight: 15
