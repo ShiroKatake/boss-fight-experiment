@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Elemental charging ability.
+/// </summary>
 public class ElementalCharge : AbilityBase
 {
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
+
+	//Serialized Fields----------------------------------------------------------------------------
+
 	[SerializeField] private GameObject fireFX;
 	[SerializeField] private GameObject thunderFX;
 
@@ -11,6 +18,8 @@ public class ElementalCharge : AbilityBase
 	[SerializeField] private float radius;
 	[SerializeField] private float pitch;
 	[SerializeField] private float maxHeight;
+
+	//Non-Serialized Fields------------------------------------------------------------------------
 
 	private Boss boss;
 
@@ -21,18 +30,35 @@ public class ElementalCharge : AbilityBase
 	private float posX, posY, posZ;
 	private float angleT;
 
+	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// Functionality: Get components.
+	/// </summary>
 	private void Awake()
 	{
 		boss = GetComponent<Boss>();
 	}
 
-	// Start is called before the first frame update
+	/// <summary>
+	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
+	/// Start() runs after Awake().
+	/// Functionality: Initialize values.
+	/// </summary>
 	private void Start()
     {
 		currentMoveSpeed = moveSpeed;
 		startHeight = transform.position.y;
 	}
 
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Update() is run every frame.
+	/// Functionality: Runs Orbit() if time has not exceeded duration.
+	/// </summary>
 	private void Update()
 	{
 		if (timePassed < abilityDuration)
@@ -44,6 +70,11 @@ public class ElementalCharge : AbilityBase
 			Orbit();
 	}
 
+	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Orbits the boss in a spiral, then a circle when reached maximum height.
+	/// </summary>
 	private void Orbit()
 	{
 		angleT += Mathf.Deg2Rad * moveSpeed * direction * Time.deltaTime;
@@ -55,6 +86,10 @@ public class ElementalCharge : AbilityBase
 		transform.localPosition = new Vector3(posX, posY, posZ);
 	}
 
+	/// <summary>
+	/// Enables particle fx based on element given.
+	/// </summary>
+	/// <param name="element">Current boss' element.</param>
 	private void EnableFX(EElement element)
 	{
 		switch (element)
