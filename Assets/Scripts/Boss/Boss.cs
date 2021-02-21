@@ -22,30 +22,24 @@ public class Boss : MonoBehaviour
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	//Serialized Fields----------------------------------------------------------------------------
-	private Queue<KeyValuePair<float,Ability>> abilityQueue;
-	private Ability lastAbility;
-	private Ability currentAbility;
 
 	private EElement element;
-	private ElementalCharge elementalCharge;
-	private ElementalRelease elementalRelease;
 
 	//Basic Public Properties----------------------------------------------------------------------
 
-	public EElement Element { get => element; }
+	public EElement Element { get => element; set => element = value; }
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
 	private void Awake()
 	{
-		elementalCharge = GetComponent<ElementalCharge>();
-		elementalRelease = GetComponent<ElementalRelease>();
+
 	}
 
 	// Start is called before the first frame update
 	void Start()
     {
-		abilityQueue.Enqueue(new KeyValuePair<float, Ability>(10f, elementalCharge));
+
     }
 
     // Update is called once per frame
@@ -53,18 +47,4 @@ public class Boss : MonoBehaviour
     {
         
     }
-
-	IEnumerator BossTimeline()
-	{
-		GetComponent<ElementalCharge>().Execute();
-		yield return null;
-	}
-
-	/// <summary>
-	/// Gets a random element for an attack.
-	/// </summary>
-	private void GetRandomElement()
-	{
-		element = (EElement)Random.Range(0, 2);
-	}
 }

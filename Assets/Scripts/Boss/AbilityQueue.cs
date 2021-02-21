@@ -18,17 +18,12 @@ public class AbilityQueue : MonoBehaviour
 
 	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
 
-	//public Queue<KeyValuePair<float, Ability>> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
+	public Queue<KeyValuePair<float, Ability>> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
 	
 	private void Awake()
 	{
 		InitializeAbility(elementalCharge);
 		InitializeAbility(elementalRelease);
-	}
-
-	void Start()
-    {
-		//abilityQueue.Enqueue(new KeyValuePair<float, Ability>(10f, elementalCharge));
 		ReadCSV();
 	}
 
