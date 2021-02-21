@@ -33,10 +33,15 @@ public class ElementalCharge : AbilityBase
 		startHeight = transform.position.y;
 	}
 
-	protected override void Ability()
+	private void Update()
 	{
-		EnableFX(boss.Element);
-		Orbit();
+		if (timePassed < abilityDuration)
+			timePassed += Time.deltaTime;
+		else
+			isUsing = false;
+
+		if (isUsing)
+			Orbit();
 	}
 
 	private void Orbit()
@@ -52,16 +57,25 @@ public class ElementalCharge : AbilityBase
 
 	private void EnableFX(EElement element)
 	{
-		if (element == EElement.Fire)
+		switch (element)
 		{
-			fireFX.SetActive(true);
-			thunderFX.SetActive(false);
+			case EElement.Fire:
+				fireFX.SetActive(true);
+				thunderFX.SetActive(false);
+				break;
+			case EElement.Thunder:
+				fireFX.SetActive(false);
+				thunderFX.SetActive(true);
+				break;
+			default:
+				Debug.Log("Element number went out of range.");
+				break;
 		}
+	}
 
-		else if (element == EElement.Thunder)
-		{
-			fireFX.SetActive(false);
-			thunderFX.SetActive(true);
-		}
+	public override void Execute(int element = 0)
+	{
+		//EnableFX((EElement)element);
+		base.Execute(element);
 	}
 }
