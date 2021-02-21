@@ -11,6 +11,9 @@ public enum EElement
 	Thunder
 }
 
+//TODO: Create a queue to enqueue and dequeue abilities
+//CSV structure: [Time to execute] [Ability name]
+
 /// <summary>
 /// Blueprint for boss.
 /// </summary>
@@ -19,8 +22,13 @@ public class Boss : MonoBehaviour
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	//Serialized Fields----------------------------------------------------------------------------
-	
+	private Queue<Ability> abilityTimeline;
+	private Ability lastAbility;
+	private Ability currentAbility;
+
 	private EElement element;
+	private ElementalCharge elementalCharge;
+	private ElementalRelease elementalRelease;
 
 	//Basic Public Properties----------------------------------------------------------------------
 
@@ -28,11 +36,16 @@ public class Boss : MonoBehaviour
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
+	private void Awake()
+	{
+		elementalCharge = GetComponent<ElementalCharge>();
+		elementalRelease = GetComponent<ElementalRelease>();
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
-		GetComponent<ElementalCharge>().Execute();
-		//GetComponent<ElementalRelease>().Execute((int)EElement.Fire);
+		elementalCharge.Execute();
     }
 
     // Update is called once per frame
@@ -40,6 +53,12 @@ public class Boss : MonoBehaviour
     {
         
     }
+
+	IEnumerator BossTimeline()
+	{
+		GetComponent<ElementalCharge>().Execute();
+		yield return null;
+	}
 
 	/// <summary>
 	/// Gets a random element for an attack.
