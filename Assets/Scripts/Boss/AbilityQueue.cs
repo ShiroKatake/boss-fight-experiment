@@ -8,26 +8,28 @@ public class AbilityQueue : MonoBehaviour
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	//Serialized Fields----------------------------------------------------------------------------
-	private Queue<KeyValuePair<float, Ability>> abilityQueue;
+	private Queue<KeyValuePair<float, Ability>> abilityQueue = new Queue<KeyValuePair<float, Ability>>();
+	private Dictionary<string, Ability> abilityDictionary = new Dictionary<string, Ability>();
 	private Ability lastAbility;
 	private Ability currentAbility;
 
+	private ElementalCharge elementalCharge;
+	private ElementalRelease elementalRelease;
+
 	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
 
+	//public Queue<KeyValuePair<float, Ability>> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
+	
 	private void Awake()
 	{
-
+		InitializeAbility(elementalCharge);
+		InitializeAbility(elementalRelease);
 	}
 
 	void Start()
     {
 		//abilityQueue.Enqueue(new KeyValuePair<float, Ability>(10f, elementalCharge));
 		ReadCSV();
-	}
-
-	// Update is called once per frame
-	void Update()
-    {
 	}
 
 	private void ReadCSV()
@@ -43,7 +45,19 @@ public class AbilityQueue : MonoBehaviour
 				break;
 			}
 			var data_values = data_string.Split(',');
-			Debug.Log(data_values[0].ToString() + " " + data_values[1].ToString());
+			abilityQueue.Enqueue(new KeyValuePair<float, Ability>(float.Parse(data_values[0]), GetAbility(data_values[1])));
 		}
+	}
+
+	private void InitializeAbility<T>(T abilityType)
+	{
+		abilityType = GetComponent<T>();
+		Ability ability = abilityType as Ability;
+		abilityDictionary.Add(ability.AbilityName, abilityType as Ability);
+	}
+
+	private Ability GetAbility(string abilityName)
+	{
+		return abilityDictionary[abilityName];
 	}
 }
