@@ -22,7 +22,7 @@ public class Boss : MonoBehaviour
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	//Serialized Fields----------------------------------------------------------------------------
-	private Queue<Ability> abilityTimeline;
+	private Queue<KeyValuePair<float,Ability>> abilityQueue;
 	private Ability lastAbility;
 	private Ability currentAbility;
 
@@ -45,7 +45,7 @@ public class Boss : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		elementalCharge.Execute();
+		abilityQueue.Enqueue(new KeyValuePair<float, Ability>(10f, elementalCharge));
     }
 
     // Update is called once per frame
