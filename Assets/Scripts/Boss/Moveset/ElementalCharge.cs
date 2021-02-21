@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Elemental charging ability.
 /// </summary>
-public class ElementalCharge : AbilityBase
+public class ElementalCharge : Ability
 {
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
@@ -66,9 +66,7 @@ public class ElementalCharge : AbilityBase
 	/// </summary>
 	private void Update()
 	{
-		if (timePassed < abilityDuration)
-			timePassed += Time.deltaTime;
-		else
+		if (timePassed > abilityDuration)
 			isUsing = false;
 
 		SpeedControl();
@@ -108,9 +106,7 @@ public class ElementalCharge : AbilityBase
 		if (transform.position.y < maxHeight)
 		{
 			if (currentMoveSpeed < moveSpeed)
-			{
 				currentMoveSpeed = Accelerate(0f, moveSpeed, true);
-			}
 			else
 				accelerationTimePassed = 0f;
 		}
