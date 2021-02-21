@@ -1677,6 +1677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDuration: 0
+  abilityName: 
   fireFX: {fileID: 0}
   thunderFX: {fileID: 0}
   moveSpeed: 5
@@ -2618,6 +2619,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2117466109}
   - component: {fileID: 2117466111}
+  - component: {fileID: 2117466114}
+  - component: {fileID: 2117466113}
   - component: {fileID: 2117466110}
   - component: {fileID: 2117466112}
   m_Layer: 0
@@ -2654,6 +2657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDuration: 8.2
+  abilityName: Elemental Charge
   fireFX: {fileID: 0}
   thunderFX: {fileID: 0}
   moveSpeed: 400
@@ -2681,14 +2685,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117466108}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6e9a9f984906cc49ad77b48c27c3d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDuration: 5
+  abilityName: Elemental Release
   moveSpeed: 300
   radius: 20
+--- !u!114 &2117466113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117466108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3864df59005902b45b45e74931913099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2117466114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117466108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81efc23bc2c45a5418fb941d8441bfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2134062490
 PrefabInstance:
   m_ObjectHideFlags: 0
