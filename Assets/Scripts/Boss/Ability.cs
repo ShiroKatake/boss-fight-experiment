@@ -12,6 +12,7 @@ public abstract class Ability : MonoBehaviour
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] protected float abilityDuration;
+	[SerializeField] protected string abilityName;
 
 	//Non-Serialized Fields------------------------------------------------------------------------
 
@@ -20,14 +21,19 @@ public abstract class Ability : MonoBehaviour
 
 	//Basic Public Properties----------------------------------------------------------------------
 
+	public bool IsUsing { get => isUsing; }
 	public bool Finished { get => timePassed >= abilityDuration; }
+	public string AbilityName { get => abilityName; }
 
 	protected virtual void Update()
 	{
-		if (timePassed < abilityDuration)
-			timePassed += Time.deltaTime;
-		if (timePassed > abilityDuration)
-			timePassed = abilityDuration;
+		if (isUsing)
+			{
+				if (timePassed < abilityDuration)
+					timePassed += Time.deltaTime;
+				if (timePassed > abilityDuration)
+					timePassed = abilityDuration;
+			}
 	}
 
 	/// <summary>
