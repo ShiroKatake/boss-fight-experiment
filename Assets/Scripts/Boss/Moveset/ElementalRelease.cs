@@ -21,7 +21,8 @@ public class ElementalRelease : Ability
 	protected override void Update()
 	{
 		base.Update();
-		Release();
+		if (IsUsing)
+			Release();
 	}
 
 	private void Release()
