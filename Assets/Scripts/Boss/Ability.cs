@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Base class for every boss ability.
 /// </summary>
-public abstract class AbilityBase : MonoBehaviour
+public abstract class Ability : MonoBehaviour
 {
 	//Protected Fields---------------------------------------------------------------------------------------------------------------------------------
 
@@ -17,6 +17,18 @@ public abstract class AbilityBase : MonoBehaviour
 
 	protected bool isUsing;
 	protected float timePassed;
+
+	//Basic Public Properties----------------------------------------------------------------------
+
+	public bool Finished { get => timePassed >= abilityDuration; }
+
+	private void Update()
+	{
+		if (timePassed < abilityDuration)
+			timePassed += Time.deltaTime;
+		if (timePassed > abilityDuration)
+			timePassed = abilityDuration;
+	}
 
 	/// <summary>
 	/// Executes boss ability.
