@@ -32,6 +32,7 @@ public class CommentsExample : MonoBehaviour
 	/// <summary>
 	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
 	/// Awake() runs before Start().
+	/// Functionality:
 	/// </summary>
 	private void Awake()
 	{
@@ -46,6 +47,7 @@ public class CommentsExample : MonoBehaviour
 	/// <summary>
 	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
 	/// Start() runs after Awake().
+	/// Functionality:
 	/// </summary>
 	private void Start()
 	{
@@ -56,6 +58,7 @@ public class CommentsExample : MonoBehaviour
 
 	/// <summary>
 	/// Update() is run every frame.
+	/// Functionality:
 	/// </summary>
 	private void Update()
 	{
@@ -64,6 +67,7 @@ public class CommentsExample : MonoBehaviour
 
 	/// <summary>
 	/// FixedUpdate() is run at a fixed interval independant of framerate.
+	/// Functionality:
 	/// </summary>
 	private void FixedUpdate()
 	{
