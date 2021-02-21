@@ -22,7 +22,7 @@ public abstract class Ability : MonoBehaviour
 
 	public bool Finished { get => timePassed >= abilityDuration; }
 
-	private void Update()
+	protected virtual void Update()
 	{
 		if (timePassed < abilityDuration)
 			timePassed += Time.deltaTime;

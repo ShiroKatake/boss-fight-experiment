@@ -18,8 +18,9 @@ public class ElementalRelease : Ability
 		currentMoveSpeed = moveSpeed;
 	}
 
-	private void Update()
+	protected override void Update()
 	{
+		base.Update();
 		Release();
 	}
 

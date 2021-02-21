@@ -64,9 +64,10 @@ public class ElementalCharge : Ability
 	/// Update() is run every frame.
 	/// Functionality: Runs Orbit() if time has not exceeded duration.
 	/// </summary>
-	private void Update()
+	protected override void Update()
 	{
-		if (timePassed > abilityDuration)
+		base.Update();
+		if (timePassed >= abilityDuration)
 			isUsing = false;
 
 		SpeedControl();
