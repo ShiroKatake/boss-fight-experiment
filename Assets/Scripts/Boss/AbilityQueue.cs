@@ -31,6 +31,8 @@ public class AbilityQueue : MonoBehaviour
 
 	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
 
+	private EElement firstElement;
+
 	public Queue<AbilityExecutionData> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
 	
 	private void Awake()
@@ -74,9 +76,30 @@ public class AbilityQueue : MonoBehaviour
 	{
 		EElement element = EElement.None;
 
-		if (aElement != "")
-			element = (EElement)System.Enum.Parse(typeof(EElement), aElement);
+		switch (aElement)
+		{
+			case "Random":
+				element = GetRandomElement();
+				firstElement = element;
+				break;
+			case "Other":
+				element = firstElement == EElement.Fire ? EElement.Thunder : EElement.Fire;
+				break;
+			case "":
+				break;
+			default:
+				element = (EElement)System.Enum.Parse(typeof(EElement), aElement);
+				break;
+		}
 
 		return new AbilityExecutionData(executionTime, abilityDictionary[abilityName], element);
+	}
+
+	/// <summary>
+	/// Gets a random element for an attack.
+	/// </summary>
+	private EElement GetRandomElement()
+	{
+		return (EElement)Random.Range((int)EElement.Fire, (int)EElement.Thunder + 1);
 	}
 }

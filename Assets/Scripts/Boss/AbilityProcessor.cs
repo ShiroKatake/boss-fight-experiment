@@ -28,20 +28,14 @@ public class AbilityProcessor : MonoBehaviour
 		ExecuteTimeline();
 	}
 
-	/// <summary>
-	/// Gets a random element for an attack.
-	/// </summary>
-	private void GetRandomElement()
-	{
-		boss.Element = (EElement)Random.Range(0, 2);
-	}
-
 	private void ExecuteTimeline()
 	{
 		if (currentAbility != null && !currentAbility.ability.IsUsing && timePassed >= currentAbility.timeOfExecution)
 		{
 			boss.Element = currentAbility.element;
+			Debug.Log($"Boss' Element: {boss.Element}");
 			currentAbility.ability.Execute();
+			Debug.Log($"Ability' Element: {currentAbility.ability.Element}");
 
 			if (abilityQueue.BossAbilityQueue.Count != 0)
 				currentAbility = abilityQueue.BossAbilityQueue.Dequeue();

@@ -9,7 +9,8 @@ public enum EElement
 {
 	None,
 	Fire,
-	Thunder
+	Thunder,
+	Random
 }
 
 //TODO: Create a queue to enqueue and dequeue abilities
