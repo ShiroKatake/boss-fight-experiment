@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public enum EElement
 {
+	None,
 	Fire,
 	Thunder
 }
