@@ -15,7 +15,7 @@ public abstract class Ability : MonoBehaviour
 	[SerializeField] protected string abilityName;
 
 	//Non-Serialized Fields------------------------------------------------------------------------
-	private EElement element;
+	private EElement element = EElement.None;
 	protected bool isUsing;
 	protected float timePassed;
 
