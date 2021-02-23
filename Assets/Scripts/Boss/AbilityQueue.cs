@@ -67,11 +67,11 @@ public class AbilityQueue : MonoBehaviour
 	
 	private void EnqueueAbilities(string[] dataValues)
 	{
-		abilityQueue.Enqueue(GetExecutionData(float.Parse(dataValues[0]), dataValues[1], dataValues[2]));
+		abilityQueue.Enqueue(GenerateExecutionData(float.Parse(dataValues[0]), dataValues[1], dataValues[2]));
 	}
 
 	//TODO: Check to see if you can assign different elements to the same abilities, only executed at different times
-	private AbilityExecutionData GetExecutionData(float executionTime, string abilityName, string aElement)
+	private AbilityExecutionData GenerateExecutionData(float executionTime, string abilityName, string aElement)
 	{
 		EElement element = EElement.None;
 
