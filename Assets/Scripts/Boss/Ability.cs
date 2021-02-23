@@ -12,10 +12,10 @@ public abstract class Ability : MonoBehaviour
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] protected float abilityDuration;
-	[SerializeField] protected string abilityName;
 
 	//Non-Serialized Fields------------------------------------------------------------------------
 	private EElement element = EElement.None;
+	protected string abilityName;
 	protected bool isUsing;
 	protected float timePassed;
 
@@ -41,7 +41,7 @@ public abstract class Ability : MonoBehaviour
 	/// Executes boss ability.
 	/// </summary>
 	/// <param name="element">Passes boss' element if required.</param>
-	public virtual void Execute(EElement element = 0)
+	public virtual void Execute()
 	{
 		isUsing = true;
 		timePassed = 0f;

@@ -53,7 +53,7 @@ public class AbilityQueue : MonoBehaviour
 				break;
 			}
 			var data_values = data_string.Split(',');
-			Debug.Log($"{data_values[0]}, {data_values[1]}, {data_values[2]}");
+			//Debug.Log($"{data_values[0]}, {data_values[1]}, {data_values[2]}");
 			EnqueueAbilities(data_values);
 		}
 	}

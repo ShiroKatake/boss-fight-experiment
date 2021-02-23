@@ -40,7 +40,8 @@ public class AbilityProcessor : MonoBehaviour
 	{
 		if (!currentAbility.ability.IsUsing && timePassed >= currentAbility.timeOfExecution)
 		{
-			currentAbility.ability.Execute(currentAbility.element);
+			boss.Element = currentAbility.element;
+			currentAbility.ability.Execute();
 
 			if (abilityQueue.BossAbilityQueue.Count != 0)
 				currentAbility = abilityQueue.BossAbilityQueue.Dequeue();
