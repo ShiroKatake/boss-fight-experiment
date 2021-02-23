@@ -9,12 +9,8 @@ public enum EElement
 {
 	None,
 	Fire,
-	Thunder,
-	Random
+	Thunder
 }
-
-//TODO: Create a queue to enqueue and dequeue abilities
-//CSV structure: [Time to execute] [Ability name]
 
 /// <summary>
 /// Blueprint for boss.
@@ -30,23 +26,4 @@ public class Boss : MonoBehaviour
 	//Basic Public Properties----------------------------------------------------------------------
 
 	public EElement Element { get => element; set => element = value; }
-
-	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
-
-	private void Awake()
-	{
-
-	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

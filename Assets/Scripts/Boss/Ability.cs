@@ -26,6 +26,12 @@ public abstract class Ability : MonoBehaviour
 	public string AbilityName { get => abilityName; }
 	public EElement Element { get => element; set => element = value; }
 
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Update() is run every frame.
+	/// Functionality: Count time if the ability is still being executed.
+	/// </summary>
 	protected virtual void Update()
 	{
 		if (isUsing)
@@ -36,6 +42,8 @@ public abstract class Ability : MonoBehaviour
 					timePassed = abilityDuration;
 			}
 	}
+
+	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
 	/// <summary>
 	/// Executes boss ability.

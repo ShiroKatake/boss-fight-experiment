@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Elemental charging ability.
+/// Grants the boss an element, Fire or Thunder, which will be used to execute elemental attacks.
 /// </summary>
 public class ElementalCharge : Ability
 {
@@ -28,20 +28,19 @@ public class ElementalCharge : Ability
 	private float currentMoveSpeed;
 	private float startHeight;
 
+	#region Coil shape parameters
 	private float direction = 1f;
 	private float posX, posY, posZ;
 	private float angleT;
+	#endregion
 
 	private float accelerationTimePassed;
-
-	private float test;
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
 	/// <summary>
 	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
 	/// Awake() runs before Start().
-	/// Functionality: Get components.
 	/// </summary>
 	private void Awake()
 	{
@@ -52,7 +51,6 @@ public class ElementalCharge : Ability
 	/// <summary>
 	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
 	/// Start() runs after Awake().
-	/// Functionality: Initialize values.
 	/// </summary>
 	private void Start()
     {
@@ -63,7 +61,7 @@ public class ElementalCharge : Ability
 
 	/// <summary>
 	/// Update() is run every frame.
-	/// Functionality: Runs Orbit() if time has not exceeded duration.
+	/// Functionality: Runs Coil() if time has not exceeded duration.
 	/// </summary>
 	protected override void Update()
 	{
@@ -79,6 +77,9 @@ public class ElementalCharge : Ability
 
 	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
+	/// <summary>
+	/// Sets ability parameters to thedefault values.
+	/// </summary>
 	private void Initialize()
 	{
 		accelerationTimePassed = 0f;

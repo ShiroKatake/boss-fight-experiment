@@ -2,27 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Perform a fire or thunder attack depending on the element charged from Elemental Charge.
+/// </summary>
 public class ElementalRelease : Ability
 {
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
+
+	//Serialized Fields----------------------------------------------------------------------------
+
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float radius;
+
+	//Non-Serialized Fields------------------------------------------------------------------------
 
 	private float angleT;
 	private float posX, posY, posZ;
 	private float currentMoveSpeed;
 	private float direction = 1f;
 
+	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary>
 	private void Awake()
 	{
 		abilityName = "Elemental Release";
 	}
 
-	// Start is called before the first frame update
+	/// <summary>
+	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
+	/// Start() runs after Awake().
+	/// </summary>
 	void Start()
     {
 		currentMoveSpeed = moveSpeed;
 	}
 
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Update() is run every frame.
+	/// Functionality: Runs Release() if time has not exceeded duration.
+	/// </summary>
 	protected override void Update()
 	{
 		base.Update();
@@ -31,6 +55,8 @@ public class ElementalRelease : Ability
 		if (isUsing)
 			Release();
 	}
+
+	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
 	private void Release()
 	{

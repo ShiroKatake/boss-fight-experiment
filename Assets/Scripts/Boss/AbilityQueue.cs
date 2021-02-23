@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Contains data on how to execute a boss ability for the Ability Processor.
+/// </summary>
 public class AbilityExecutionData
 {
 	public float timeOfExecution;
@@ -17,24 +20,36 @@ public class AbilityExecutionData
 	}
 }
 
+/// <summary>
+/// Prepares a timeline of boss abilities for the Ability Processor to use and execute.
+/// </summary>
 public class AbilityQueue : MonoBehaviour
 {
-
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
-	//Serialized Fields----------------------------------------------------------------------------
+	//Non-Serialized Fields----------------------------------------------------------------------------
+	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
+
 	private Queue<AbilityExecutionData> abilityQueue = new Queue<AbilityExecutionData>();
 	private Dictionary<string, Ability> abilityDictionary = new Dictionary<string, Ability>();
 
+	#region Boss Abilities
 	private ElementalCharge elementalCharge;
 	private ElementalRelease elementalRelease;
-
-	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
+	#endregion
 
 	private EElement firstElement;
 
+	//Basic Public Properties----------------------------------------------------------------------
+
 	public Queue<AbilityExecutionData> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
-	
+
+	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary>
 	private void Awake()
 	{
 		InitializeAbility(elementalCharge);
@@ -42,6 +57,11 @@ public class AbilityQueue : MonoBehaviour
 		ReadCSV();
 	}
 
+	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Read the CSV file containing data on the timeline.
+	/// </summary>
 	private void ReadCSV()
 	{
 		StreamReader streamReader = new StreamReader(CSV_PATH);
@@ -60,6 +80,11 @@ public class AbilityQueue : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Get component for the specified ability and add it to the dictionary of abilities.
+	/// </summary>
+	/// <typeparam name="T">Generic ability parameter.</typeparam>
+	/// <param name="abilityType">Ability type that the function will get the component of.</param>
 	private void InitializeAbility<T>(T abilityType)
 	{
 		abilityType = GetComponent<T>();
@@ -67,11 +92,22 @@ public class AbilityQueue : MonoBehaviour
 		abilityDictionary.Add(ability.AbilityName, ability);
 	}
 	
+	/// <summary>
+	/// Add the ability to the timeline queue according to the line read from the CSV file.
+	/// </summary>
+	/// <param name="dataValues">Data read from the CSV file.</param>
 	private void EnqueueAbilities(string[] dataValues)
 	{
 		abilityQueue.Enqueue(GenerateExecutionData(float.Parse(dataValues[0]), dataValues[1], dataValues[2]));
 	}
 
+	/// <summary>
+	/// Generate the execution data for the ability to be added to the queue,
+	/// </summary>
+	/// <param name="executionTime">Time ability will be executed.</param>
+	/// <param name="abilityName">Boss ability's name.</param>
+	/// <param name="aElement">Element for the ability.</param>
+	/// <returns></returns>
 	private AbilityExecutionData GenerateExecutionData(float executionTime, string abilityName, string aElement)
 	{
 		EElement element = EElement.None;
@@ -95,6 +131,7 @@ public class AbilityQueue : MonoBehaviour
 		return new AbilityExecutionData(executionTime, abilityDictionary[abilityName], element);
 	}
 
+	//TODO: Change this to GetElement instead.
 	/// <summary>
 	/// Gets a random element for an attack.
 	/// </summary>
