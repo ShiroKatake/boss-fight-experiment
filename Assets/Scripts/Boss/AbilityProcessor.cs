@@ -7,8 +7,8 @@ public class AbilityProcessor : MonoBehaviour
 	private Boss boss;
 	private AbilityQueue abilityQueue;
 	private float timePassed;
-	private KeyValuePair<float, Ability> currentAbility = new KeyValuePair<float, Ability>();
-	private KeyValuePair<float, Ability> nextAbility = new KeyValuePair<float, Ability>();
+	private KeyValuePair<float, AbilityExecutionData> currentAbility = new KeyValuePair<float, AbilityExecutionData>();
+	private KeyValuePair<float, AbilityExecutionData> nextAbility = new KeyValuePair<float, AbilityExecutionData>();
 
 	private void Awake()
 	{
@@ -38,14 +38,13 @@ public class AbilityProcessor : MonoBehaviour
 
 	private void ExecuteAbility()
 	{
-		Debug.Log("Executing");
 		if (abilityQueue.BossAbilityQueue.Count != 0)
 			nextAbility = abilityQueue.BossAbilityQueue.Dequeue();
 
-		if (!currentAbility.Value.IsUsing && timePassed >= currentAbility.Key)
+		if (!currentAbility.Value.ability.IsUsing && timePassed >= currentAbility.Key)
 		{
-			Debug.Log(currentAbility.Value.AbilityName);
-			currentAbility.Value.Execute();
+			currentAbility.Value.ability.Execute(currentAbility.Value.element);
+			Debug.Log(currentAbility.Value.ability.Element.ToString());
 			currentAbility = nextAbility;
 		}
 	}
