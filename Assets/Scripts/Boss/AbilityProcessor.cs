@@ -25,7 +25,7 @@ public class AbilityProcessor : MonoBehaviour
 	void Update()
     {
 		timePassed += Time.deltaTime;
-		ExecuteAbility();
+		ExecuteTimeline();
 	}
 
 	/// <summary>
@@ -36,15 +36,17 @@ public class AbilityProcessor : MonoBehaviour
 		boss.Element = (EElement)Random.Range(0, 2);
 	}
 
-	private void ExecuteAbility()
+	private void ExecuteTimeline()
 	{
-		if (!currentAbility.ability.IsUsing && timePassed >= currentAbility.timeOfExecution)
+		if (currentAbility != null && !currentAbility.ability.IsUsing && timePassed >= currentAbility.timeOfExecution)
 		{
 			boss.Element = currentAbility.element;
 			currentAbility.ability.Execute();
 
 			if (abilityQueue.BossAbilityQueue.Count != 0)
 				currentAbility = abilityQueue.BossAbilityQueue.Dequeue();
+			else
+				currentAbility = null;
 		}
 	}
 
