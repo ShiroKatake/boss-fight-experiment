@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class AbilityExecutionData
 {
+	public float timeOfExecution;
 	public Ability ability;
 	public EElement element;
 
-	public AbilityExecutionData(Ability ability, EElement element)
+	public AbilityExecutionData(float timeOfExecution, Ability ability, EElement element)
 	{
+		this.timeOfExecution = timeOfExecution;
 		this.ability = ability;
 		this.element = element;
 	}
@@ -21,7 +23,7 @@ public class AbilityQueue : MonoBehaviour
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	//Serialized Fields----------------------------------------------------------------------------
-	private Queue<KeyValuePair<float, AbilityExecutionData>> abilityQueue = new Queue<KeyValuePair<float, AbilityExecutionData>>();
+	private Queue<AbilityExecutionData> abilityQueue = new Queue<AbilityExecutionData>();
 	private Dictionary<string, Ability> abilityDictionary = new Dictionary<string, Ability>();
 
 	private ElementalCharge elementalCharge;
@@ -29,7 +31,7 @@ public class AbilityQueue : MonoBehaviour
 
 	private const string CSV_PATH = "Assets/CSV/BossTimeline.csv";
 
-	public Queue<KeyValuePair<float, AbilityExecutionData>> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
+	public Queue<AbilityExecutionData> BossAbilityQueue { get => abilityQueue; set => abilityQueue = value; }
 	
 	private void Awake()
 	{
@@ -51,6 +53,7 @@ public class AbilityQueue : MonoBehaviour
 				break;
 			}
 			var data_values = data_string.Split(',');
+			Debug.Log($"{data_values[0]}, {data_values[1]}, {data_values[2]}");
 			EnqueueAbilities(data_values);
 		}
 	}
@@ -64,20 +67,17 @@ public class AbilityQueue : MonoBehaviour
 	
 	private void EnqueueAbilities(string[] dataValues)
 	{
-		abilityQueue.Enqueue(new KeyValuePair<float, AbilityExecutionData>(float.Parse(dataValues[0]), GetExecutionData(dataValues[1], dataValues[2])));
+		abilityQueue.Enqueue(GetExecutionData(float.Parse(dataValues[0]), dataValues[1], dataValues[2]));
 	}
 
 	//TODO: Check to see if you can assign different elements to the same abilities, only executed at different times
-	private AbilityExecutionData GetExecutionData(string abilityName, string aElement)
+	private AbilityExecutionData GetExecutionData(float executionTime, string abilityName, string aElement)
 	{
 		EElement element = EElement.None;
 
 		if (aElement != "")
-		{
 			element = (EElement)System.Enum.Parse(typeof(EElement), aElement);
-			abilityDictionary[abilityName].Element = element;
-		}
 
-		return new AbilityExecutionData(abilityDictionary[abilityName], element);
+		return new AbilityExecutionData(executionTime, abilityDictionary[abilityName], element);
 	}
 }
