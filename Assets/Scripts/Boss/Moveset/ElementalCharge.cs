@@ -154,9 +154,10 @@ public class ElementalCharge : Ability
 		}
 	}
 
-	public override void Execute(int element = 0)
+	public override void Execute(EElement element = 0)
 	{
 		Initialize();
+		Element = element;
 		//EnableFX((EElement)element);
 		base.Execute(element);
 	}
