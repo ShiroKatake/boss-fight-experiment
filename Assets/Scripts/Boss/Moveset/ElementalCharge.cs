@@ -45,6 +45,7 @@ public class ElementalCharge : Ability
 	/// </summary>
 	private void Awake()
 	{
+		abilityName = "Elemental Charge";
 		boss = GetComponent<Boss>();
 	}
 
@@ -55,7 +56,6 @@ public class ElementalCharge : Ability
 	/// </summary>
 	private void Start()
     {
-		abilityName = "Elemental Charge";
 		Initialize();
 	}
 
@@ -155,11 +155,11 @@ public class ElementalCharge : Ability
 		}
 	}
 
-	public override void Execute(EElement element = 0)
+	public override void Execute()
 	{
 		Initialize();
-		Element = element;
+		Element = boss.Element;
 		//EnableFX((EElement)element);
-		base.Execute(element);
+		base.Execute();
 	}
 }

@@ -12,11 +12,15 @@ public class ElementalRelease : Ability
 	private float currentMoveSpeed;
 	private float direction = 1f;
 
+	private void Awake()
+	{
+		abilityName = "Elemental Release";
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
 		currentMoveSpeed = moveSpeed;
-		abilityName = "Elemental Release";
 	}
 
 	protected override void Update()
