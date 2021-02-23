@@ -55,6 +55,7 @@ public class ElementalCharge : Ability
 	/// </summary>
 	private void Start()
     {
+		abilityName = "Elemental Charge";
 		Initialize();
 	}
 

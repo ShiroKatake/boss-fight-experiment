@@ -16,12 +16,15 @@ public class ElementalRelease : Ability
 	void Start()
     {
 		currentMoveSpeed = moveSpeed;
+		abilityName = "Elemental Release";
 	}
 
 	protected override void Update()
 	{
 		base.Update();
-		if (IsUsing)
+		if (timePassed >= abilityDuration)
+			isUsing = false;
+		if (isUsing)
 			Release();
 	}
 
