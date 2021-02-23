@@ -60,7 +60,7 @@ public class AbilityProcessor : MonoBehaviour
 		if (currentAbility != null && !currentAbility.ability.IsUsing && timePassed >= currentAbility.timeOfExecution)
 		{
 			boss.Element = currentAbility.element;
-			Debug.Log($"Boss' Element: {boss.Element}");
+			//Debug.Log($"Boss' Element: {boss.Element}");
 			currentAbility.ability.Execute();
 			Debug.Log($"Ability' Element: {currentAbility.ability.Element}");
 

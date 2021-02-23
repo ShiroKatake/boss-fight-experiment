@@ -106,16 +106,26 @@ public class AbilityQueue : MonoBehaviour
 	/// </summary>
 	/// <param name="executionTime">Time ability will be executed.</param>
 	/// <param name="abilityName">Boss ability's name.</param>
-	/// <param name="aElement">Element for the ability.</param>
+	/// <param name="parsedElement">Element for the ability from the CSV file.</param>
 	/// <returns></returns>
-	private AbilityExecutionData GenerateExecutionData(float executionTime, string abilityName, string aElement)
+	private AbilityExecutionData GenerateExecutionData(float executionTime, string abilityName, string parsedElement)
+	{
+		EElement element = GetElement(parsedElement);
+		return new AbilityExecutionData(executionTime, abilityDictionary[abilityName], element);
+	}
+
+	/// <summary>
+	/// Gets a random element for an attack.
+	/// </summary>
+	/// <param name="parsedElement">Element for the ability from the CSV file.</param>
+	private EElement GetElement(string parsedElement)
 	{
 		EElement element = EElement.None;
 
-		switch (aElement)
+		switch (parsedElement)
 		{
 			case "Random":
-				element = GetRandomElement();
+				element = (EElement)Random.Range((int)EElement.Fire, (int)EElement.Thunder + 1);
 				firstElement = element;
 				break;
 			case "Other":
@@ -124,19 +134,9 @@ public class AbilityQueue : MonoBehaviour
 			case "":
 				break;
 			default:
-				element = (EElement)System.Enum.Parse(typeof(EElement), aElement);
+				element = (EElement)System.Enum.Parse(typeof(EElement), parsedElement);
 				break;
 		}
-
-		return new AbilityExecutionData(executionTime, abilityDictionary[abilityName], element);
-	}
-
-	//TODO: Change this to GetElement instead.
-	/// <summary>
-	/// Gets a random element for an attack.
-	/// </summary>
-	private EElement GetRandomElement()
-	{
-		return (EElement)Random.Range((int)EElement.Fire, (int)EElement.Thunder + 1);
+		return element;
 	}
 }
